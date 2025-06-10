@@ -1,6 +1,6 @@
-﻿namespace Entities.Output.Account
+﻿namespace Entities.Responses.Account
 {
-    public class RegistrationQuery : BaseQuery
+    public class AuthenticateResponse : BaseDTO
     {
         public User? User { get; set; }
         public string? ErrorDescription { get; set; }

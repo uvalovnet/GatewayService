@@ -1,13 +1,14 @@
-﻿using Entities.Commands.Account;
-using Entities.Commands.Game;
-using Entities.Commands.Pay;
+﻿
+using Entities.Requests.Account;
+using Entities.Requests.Game;
+using Entities.Requests.Pay;
 
 namespace Entities.Interfaces
 {
     public interface ISender
     {
-        Task SendRegAndAuthAsync(RegAndAuthCommand accountData);
-        Task SendGameAsync(GameActionCommand action);
-        Task SendGameAsync(BillActionCommand action);
+        Task SendRegAndAuthAsync(RegAndAuthRequest accountData);
+        Task SendGameAsync(GameActionRequest action);
+        Task SendGameAsync(BillActionRequest action);
     }
 }

@@ -1,16 +1,16 @@
-﻿using Entities.Output.Account;
-using Entities.Output.Game;
+﻿using Entities.Responses.Account;
+using Entities.Responses.Game;
 
 namespace Entities.Interfaces
 {
     public interface ICallbackSeparator
     {
-        delegate Task AuthenticationDelegate(AuthenticateQuery receivedData);
-        delegate Task RegistrationDelegate(RegistrationQuery receivedData);
-        delegate Task GetGamesDelegate(GetGamesQuery receivedData);
-        delegate Task AddToTableDelegate(AddToTableQuery receivedData);
-        delegate Task RemoveFromTableDelegate(RemoveFromTableQuery receivedData);
-        delegate Task TakeActionDelegate(PlayerActionQuery receivedData);
+        delegate Task AuthenticationDelegate(AuthenticateResponse receivedData);
+        delegate Task RegistrationDelegate(RegistrationResponse receivedData);
+        delegate Task GetGamesDelegate(GetGamesResponse receivedData);
+        delegate Task AddToTableDelegate(AddToTableResponse receivedData);
+        delegate Task RemoveFromTableDelegate(RemoveFromTableResponse receivedData);
+        delegate Task TakeActionDelegate(PlayerActionResponse receivedData);
 
         Task Subscribe();
         Task Sub(AuthenticationDelegate method);

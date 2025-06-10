@@ -1,4 +1,4 @@
-﻿namespace Entities.Output.Account
+﻿namespace Entities.Responses.Account
 {
     public class User
     {

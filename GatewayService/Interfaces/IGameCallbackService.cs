@@ -1,13 +1,13 @@
-﻿using Entities.Queries.Game;
+﻿using Entities.Responses.Game;
 
 namespace GatewayService.Interfaces
 {
     public interface IGameCallbackService
     {
         Task Starter();
-        Task GetGames(GetGamesQuery separatedData);
-        Task AddToTable(AddToTableQuery separatedData);
-        Task RemoveFromTable(RemoveFromTableQuery separatedData);
-        Task TakeAction(PlayerActionQuery separatedData);
+        Task GetGames(GetGamesResponse separatedData);
+        Task AddToTable(AddToTableResponse separatedData);
+        Task RemoveFromTable(RemoveFromTableResponse separatedData);
+        Task TakeAction(PlayerActionResponse separatedData);
     }
 }

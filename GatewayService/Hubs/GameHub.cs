@@ -1,5 +1,6 @@
-﻿using Entities.Commands.Game;
+﻿using Entities.Requests.Game;
 using Entities.Interfaces;
+using Entities.Requests.Game;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GatewayService.Hubs
@@ -17,14 +18,14 @@ namespace GatewayService.Hubs
         {
             try
             {
-                await _sender.SendGameAsync(new GameActionCommand(null, "GetGames", null, Context.ConnectionId, null));
+                await _sender.SendGameAsync(new GameActionRequest(null, "GetGames", null, Context.ConnectionId, null));
             }
             catch
             {
                 Clients.Caller.SendAsync("SomeError");
             }
         }
-        public async Task AddToTable(GameActionCommand action)
+        public async Task AddToTable(GameActionRequest action)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace GatewayService.Hubs
                 Clients.Caller.SendAsync("SomeError");
             }
         }
-        public async Task RemoveFromTable(GameActionCommand action)
+        public async Task RemoveFromTable(GameActionRequest action)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace GatewayService.Hubs
             }
         }
 
-        public async Task TakeAction(GameActionCommand action)
+        public async Task TakeAction(GameActionRequest action)
         {
             try
             {

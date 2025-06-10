@@ -1,5 +1,5 @@
 ﻿using Entities.Interfaces;
-using Entities.Queries.Account;
+using Entities.Responses.Account;
 using GatewayService.Hubs;
 using GatewayService.Interfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -21,7 +21,7 @@ namespace GatewayService.Services
             _separator.Sub(Authentication);
             _separator.Sub(Registration);
         }
-        public async Task Authentication(AuthenticateQuery data)
+        public async Task Authentication(AuthenticateResponse data)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace GatewayService.Services
                 Console.WriteLine(ex.ToString());
             }
         }
-        public async Task Registration(RegistrationQuery data)
+        public async Task Registration(RegistrationResponse data)
         {
             try
             {

@@ -1,7 +1,8 @@
-﻿using Entities.Interfaces;
-using Entities.Queries;
-using Entities.Queries.Account;
-using Entities.Queries.Game;
+﻿using Entities;
+using Entities.Interfaces;
+using Entities.Responses;
+using Entities.Responses.Account;
+using Entities.Responses.Game;
 using Microsoft.Extensions.Logging;
 
 namespace MessageHelper
@@ -22,7 +23,7 @@ namespace MessageHelper
         {
             _logger = logger;
             _consumerGateway = new Consumer(logger, kafkaServer);
-            _consumerGateway.onMessage += CallbackMethod;
+            //_consumerGateway.onMessage += CallbackMethod;
 
         }
         public async Task Subscribe()
@@ -54,37 +55,37 @@ namespace MessageHelper
             onTakeAction += method;
         }
 
-        public async Task CallbackMethod(GeneralQuery receivedData)
+        public async Task CallbackMethod(GeneralResponse receivedData)
         {
             switch (receivedData.OperationType)
             {
-                case "Authentication":
+                case OperationTypes.Auth:
                     Authentication(receivedData.Authentication);
                     break;
 
-                case "Registration":
+                case OperationTypes.Reg:
                     Registration(receivedData.Registration);
                     break;
 
-                case "GetGames":
+                case OperationTypes.GetGames:
                     GetGames(receivedData.GetGames);
                     break;
 
-                case "AddToTable":
+                case OperationTypes.AddToTable:
                     AddToTable(receivedData.AddToTable);
                     break;
 
-                case "RemoveFromTable":
+                case OperationTypes.RemoveFromTable:
                     RemoveFromTable(receivedData.RemoveFromTable);
                     break;
 
-                case "TakeAction":
+                case OperationTypes.TakeAction:
                     TakeAction(receivedData.PlayerAction);
                     break;
             }
         }
 
-        async Task Authentication(AuthenticateQuery separatedData)
+        async Task Authentication(AuthenticateResponse separatedData)
         {
             try
             {
@@ -95,7 +96,7 @@ namespace MessageHelper
                 _logger.LogWarning(ex.Message);
             }
         }
-        async Task Registration(RegistrationQuery separatedData)
+        async Task Registration(RegistrationResponse separatedData)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace MessageHelper
                 _logger.LogWarning(ex.Message);
             }
         }
-        async Task GetGames(GetGamesQuery separatedData)
+        async Task GetGames(GetGamesResponse separatedData)
         {
             try
             {
@@ -117,7 +118,7 @@ namespace MessageHelper
                 _logger.LogWarning(ex.Message);
             }
         }
-        async Task AddToTable(AddToTableQuery separatedData)
+        async Task AddToTable(AddToTableResponse separatedData)
         {
             try
             {
@@ -128,7 +129,7 @@ namespace MessageHelper
                 _logger.LogWarning(ex.Message);
             }
         }
-        async Task RemoveFromTable(RemoveFromTableQuery separatedData)
+        async Task RemoveFromTable(RemoveFromTableResponse separatedData)
         {
             try
             {
@@ -139,7 +140,7 @@ namespace MessageHelper
                 _logger.LogWarning(ex.Message);
             }
         }
-        async Task TakeAction(PlayerActionQuery separatedData)
+        async Task TakeAction(PlayerActionResponse separatedData)
         {
             try
             {

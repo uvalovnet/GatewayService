@@ -1,7 +1,7 @@
 ﻿using Confluent.Kafka;
-using Entities.Commands.Account;
-using Entities.Commands.Game;
-using Entities.Commands.Pay;
+using Entities.Requests.Account;
+using Entities.Requests.Game;
+using Entities.Requests.Pay;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -22,17 +22,17 @@ namespace MessageHelper
             _producer = new ProducerBuilder<Null, string>(config).Build();
         }
 
-        public async Task SendAsync(string topicName, RegAndAuthCommand message)
+        public async Task SendAsync(string topicName, RegAndAuthRequest message)
         {
             var serialized = JsonSerializer.Serialize(message);
             await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });
         }
-        public async Task SendAsync(string topicName, GameActionCommand message)
+        public async Task SendAsync(string topicName, GameActionRequest message)
         {
             var serialized = JsonSerializer.Serialize(message);
             await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });
         }
-        public async Task SendAsync(string topicName, BillActionCommand message)
+        public async Task SendAsync(string topicName, BillActionRequest message)
         {
             var serialized = JsonSerializer.Serialize(message);
             await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });

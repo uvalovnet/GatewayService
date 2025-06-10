@@ -1,4 +1,4 @@
-﻿using Entities.Commands.Account;
+﻿using Entities.Requests.Account;
 using Entities.Interfaces;
 using GatewayService.Interfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -14,7 +14,7 @@ namespace GatewayService.Hubs
             _sender = sender;  
         }
 
-        public async Task SignInAsync(RegAndAuthCommand data)
+        public async Task SignInAsync(RegAndAuthRequest data)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace GatewayService.Hubs
             }
         }
 
-        public async Task SignUpAsync(RegAndAuthCommand data)
+        public async Task SignUpAsync(RegAndAuthRequest data)
         {
             try
             {

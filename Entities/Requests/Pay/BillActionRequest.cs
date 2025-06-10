@@ -1,13 +1,13 @@
-﻿namespace Entities.Input.Pay
+﻿namespace Entities.Requests.Pay
 {
-    public class BillActionCommand : BaseCommand
+    public class BillActionRequest : BaseDTO
     {
         public string? BillType { get; set; }
         public string? BillNumber { get; set; }
         public string? Action { get; set; }
         public string? Price { get; set; }
         public string? To { get; set; }
-        public BillActionCommand(string? connectionId, string? groupName) : base(connectionId, groupName)
+        public BillActionRequest(string? connectionId, string? groupName) : base(connectionId, groupName)
         {
 
         }

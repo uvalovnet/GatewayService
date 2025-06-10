@@ -1,6 +1,6 @@
-﻿namespace Entities.Output.Game
+﻿namespace Entities.Responses.Game
 {
-    public class AddToTableQuery : BaseQuery
+    public class AddToTableResponse : BaseDTO
     {
         public string? Id { get; set; }
         public bool? IsAdded { get; set; }

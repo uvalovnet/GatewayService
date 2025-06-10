@@ -1,11 +1,11 @@
-﻿namespace Entities.Input
+﻿namespace Entities.Requests.Game
 {
-    public class GameActionCommand : BaseCommand
+    public class GameActionRequest : BaseDTO
     {
         public string? NickName { get; set; }
         public string? Action { get; set; }
         public string? Details { get; set; }
-        public GameActionCommand(string? nickName, string? action, string? details,
+        public GameActionRequest(string? nickName, string? action, string? details,
             string? ConnectionId, string? groupName) : base(ConnectionId, groupName)
         {
             NickName = nickName;

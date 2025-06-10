@@ -1,4 +1,4 @@
-﻿namespace Entities.Output.Game
+﻿namespace Entities.Responses.Game
 {
     public class Player
     {

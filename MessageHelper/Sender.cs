@@ -1,6 +1,6 @@
-﻿using Entities.Commands.Account;
-using Entities.Commands.Game;
-using Entities.Commands.Pay;
+﻿using Entities.Requests.Account;
+using Entities.Requests.Game;
+using Entities.Requests.Pay;
 using Entities.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +15,7 @@ namespace MessageHelper
             _logger = logger;
             _producer = new Producer(logger, kafkaServer);
         }
-        public async Task SendRegAndAuthAsync(RegAndAuthCommand accountData)
+        public async Task SendRegAndAuthAsync(RegAndAuthRequest accountData)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace MessageHelper
             }
         }
 
-        public async Task SendGameAsync(GameActionCommand action)
+        public async Task SendGameAsync(GameActionRequest action)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace MessageHelper
             }
         }
 
-        public async Task SendGameAsync(BillActionCommand action)
+        public async Task SendGameAsync(BillActionRequest action)
         {
             try
             {

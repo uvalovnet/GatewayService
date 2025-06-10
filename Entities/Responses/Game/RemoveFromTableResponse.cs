@@ -1,6 +1,6 @@
-﻿namespace Entities.Output.Game
+﻿namespace Entities.Responses.Game
 {
-    public class RemoveFromTableQuery : BaseQuery
+    public class RemoveFromTableResponse : BaseDTO
     {
         public string? Id { get; set; }
         public string? RemovedUsersId { get; set; }

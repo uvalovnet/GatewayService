@@ -1,13 +1,17 @@
-﻿namespace Entities.Input
+﻿namespace Entities
 {
-    public class BaseCommand
+    public class BaseDTO
     {
         public string? ConnectionId { get; set; }
         public string? GroupName { get; set; }
-        public BaseCommand(string? connectionId, string? groupName)
+        public BaseDTO(string? connectionId, string? groupName)
         {
             ConnectionId = connectionId;
             GroupName = groupName;
+        }
+        public BaseDTO()
+        {
+            
         }
     }
 }

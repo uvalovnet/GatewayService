@@ -1,5 +1,5 @@
 ﻿using Confluent.Kafka;
-using Entities.Queries;
+using Entities.Responses;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -9,7 +9,7 @@ namespace MessageHelper
     {
         readonly ILogger _logger;
         readonly IConsumer<Null, string> _consumer;
-        public delegate Task CallMethod(GeneralQuery receivedData);
+        public delegate Task CallMethod(GeneralResponse receivedData);
         public event CallMethod onMessage;
 
         public Consumer(ILogger logger, string kafkaServer)
@@ -30,7 +30,7 @@ namespace MessageHelper
             while (!cancellationToken.IsCancellationRequested)
             {
                 var consumeResult = _consumer.Consume(cancellationToken);
-                onMessage.Invoke(JsonSerializer.Deserialize<GeneralQuery>(consumeResult.Value));
+                onMessage.Invoke(JsonSerializer.Deserialize<GeneralResponse>(consumeResult.Value));
             }
             return Task.CompletedTask;
         }
