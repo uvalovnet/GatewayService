@@ -48,13 +48,9 @@ namespace GatewayService.Services
         {
             try
             {
-                if (data.User == null)
+                if (data.IsSuccess)
                 {
-                    _hub.Clients.Client(data.ConnectionId).SendAsync("RegError", data.ErrorDescription);
-                }
-                else if((bool)data.User.IsRegistered)
-                {
-                    _hub.Clients.Client(data.ConnectionId).SendAsync("Reg", data.User.IsRegistered);
+                    _hub.Clients.Client(data.ConnectionId).SendAsync("Success", data);
                 }
                 else
                 {
@@ -63,7 +59,6 @@ namespace GatewayService.Services
             }
             catch (Exception ex)
             {
-                //ВВЕСТИ ЛОГГЕР
                 Console.WriteLine(ex.ToString());
             }
         }

@@ -2,6 +2,8 @@
 using Entities.Interfaces;
 using GatewayService.Interfaces;
 using Microsoft.AspNetCore.SignalR;
+using GatewayService.Models;
+using Entities.Requests;
 
 namespace GatewayService.Hubs
 {
@@ -18,9 +20,8 @@ namespace GatewayService.Hubs
         {
             try
             {
-                data.IsReg = false;
                 data.ConnectionId = Context.ConnectionId;
-                await _sender.SendRegAndAuthAsync(data);
+                //await _sender.SendRegAndAuthAsync(data);
             }
             catch
             {
@@ -28,13 +29,18 @@ namespace GatewayService.Hubs
             }
         }
 
-        public async Task SignUpAsync(RegAndAuthRequest data)
+        public async Task Reg(RegRequest request)
         {
             try
             {
-                data.IsReg = true;
-                data.ConnectionId = Context.ConnectionId;
-                await _sender.SendRegAndAuthAsync(data);
+                var data = new RegAndAuthRequest(
+                    request.username,
+                    request.email,
+                    request.password,
+                    null,
+                    Context.ConnectionId,
+                    null);
+                await _sender.SendAsync(Topics.UserRegistration.ToString(), data);
             }
             catch
             {

@@ -1,4 +1,5 @@
 ﻿using Confluent.Kafka;
+using Entities.Interfaces;
 using Entities.Requests.Account;
 using Entities.Requests.Game;
 using Entities.Requests.Pay;
@@ -7,7 +8,7 @@ using System.Text.Json;
 
 namespace MessageHelper
 {
-    internal class Producer
+    public class Producer : ISender
     {
         readonly ILogger _logger;
         readonly IProducer<Null, string> _producer;
@@ -21,23 +22,11 @@ namespace MessageHelper
             };
             _producer = new ProducerBuilder<Null, string>(config).Build();
         }
-
-        public async Task SendAsync(string topicName, RegAndAuthRequest message)
+        public async Task SendAsync<T>(string topicName, T message)
         {
             var serialized = JsonSerializer.Serialize(message);
             await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });
         }
-        public async Task SendAsync(string topicName, GameActionRequest message)
-        {
-            var serialized = JsonSerializer.Serialize(message);
-            await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });
-        }
-        public async Task SendAsync(string topicName, BillActionRequest message)
-        {
-            var serialized = JsonSerializer.Serialize(message);
-            await _producer.ProduceAsync(topicName, new Message<Null, string> { Value = serialized });
-        }
-
         public Task StopAsync()
         {
             _producer?.Dispose();

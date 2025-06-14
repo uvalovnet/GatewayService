@@ -2,7 +2,7 @@
 {
     public class RegistrationResponse : BaseDTO
     {
-        public User? User { get; set; }
+        public bool IsSuccess { get; set; }
         public string? ErrorDescription { get; set; }
     }
 }

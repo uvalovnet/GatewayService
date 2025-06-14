@@ -1,82 +1,48 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Interfaces;
+using Entities.Responses.Account;
+using Microsoft.AspNetCore.Mvc;
+using static Confluent.Kafka.ConfigPropertyNames;
 
 namespace GatewayService.Controllers
 {
+    [ApiController]
+    [Route("")]
     public class AccountController : Controller
     {
-        // GET: AccountController
-        public ActionResult Index()
+        ISender _sender;
+        public AccountController(ISender sender)
         {
-            return View();
+            _sender = sender;
         }
 
-        // GET: AccountController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AccountController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: AccountController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpPost("auth")]
+        public async Task<ActionResult<User>> Auth([FromBody] UserRegDTO reuqest)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return new User() { NickName = "Vadim"};
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+               throw ex;
             }
         }
-
-        // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AccountController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPost("reg")]
+        public async Task<ActionResult<bool>> Reg([FromBody] UserRegDTO collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
         }
-
-        // GET: AccountController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AccountController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+    }
+    public class UserRegDTO
+    {
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

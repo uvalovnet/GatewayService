@@ -18,7 +18,7 @@ namespace GatewayService.Hubs
         {
             try
             {
-                await _sender.SendGameAsync(new GameActionRequest(null, "GetGames", null, Context.ConnectionId, null));
+                //await _sender.SendGameAsync(new GameActionRequest(null, "GetGames", null, Context.ConnectionId, null));
             }
             catch
             {
@@ -30,7 +30,7 @@ namespace GatewayService.Hubs
             try
             {
                 action.ConnectionId = Context.ConnectionId;
-                await _sender.SendGameAsync(action);
+                //await _sender.SendGameAsync(action);
             }
             catch
             {
@@ -42,7 +42,7 @@ namespace GatewayService.Hubs
             try
             {
                 action.ConnectionId = Context.ConnectionId;
-                await _sender.SendGameAsync(action);
+               // await _sender.SendGameAsync(action);
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace GatewayService.Hubs
             try
             {
                 action.ConnectionId = Context.ConnectionId;
-                await _sender.SendGameAsync(action);
+                //await _sender.SendGameAsync(action);
             }
             catch
             {

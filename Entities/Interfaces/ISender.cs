@@ -7,8 +7,6 @@ namespace Entities.Interfaces
 {
     public interface ISender
     {
-        Task SendRegAndAuthAsync(RegAndAuthRequest accountData);
-        Task SendGameAsync(GameActionRequest action);
-        Task SendGameAsync(BillActionRequest action);
+        Task SendAsync<T>(string topicName, T message);
     }
 }

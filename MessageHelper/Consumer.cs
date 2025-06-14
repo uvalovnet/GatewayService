@@ -9,8 +9,6 @@ namespace MessageHelper
     {
         readonly ILogger _logger;
         readonly IConsumer<Null, string> _consumer;
-        public delegate Task CallMethod(GeneralResponse receivedData);
-        public event CallMethod onMessage;
 
         public Consumer(ILogger logger, string kafkaServer)
         {
@@ -24,15 +22,14 @@ namespace MessageHelper
             _consumer = new ConsumerBuilder<Null, string>(config).Build();
         }
 
-        public Task StartAsync(CancellationToken cancellationToken, string topicName)
+        public async Task StartAsync<N, T>(string topicName, Func<T, N> action)
         {
             _consumer.Subscribe(topicName);
-            while (!cancellationToken.IsCancellationRequested)
+            while (true)
             {
-                var consumeResult = _consumer.Consume(cancellationToken);
-                onMessage.Invoke(JsonSerializer.Deserialize<GeneralResponse>(consumeResult.Value));
+                var consumeResult = _consumer.Consume();
+                action(JsonSerializer.Deserialize<T>(consumeResult.Value));
             }
-            return Task.CompletedTask;
         }
 
         public Task StopAsync()

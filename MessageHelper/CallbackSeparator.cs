@@ -1,9 +1,11 @@
 ﻿using Entities;
 using Entities.Interfaces;
+using Entities.Requests;
 using Entities.Responses;
 using Entities.Responses.Account;
 using Entities.Responses.Game;
 using Microsoft.Extensions.Logging;
+using static Entities.Interfaces.ICallbackSeparator;
 
 namespace MessageHelper
 {
@@ -28,7 +30,8 @@ namespace MessageHelper
         }
         public async Task Subscribe()
         {
-            _consumerGateway.StartAsync(new CancellationToken(), "Gateway");
+            new Task(async () => await _consumerGateway.StartAsync<Task, RegistrationResponse>(Topics.UserRegistrationResponse.ToString(), Registration)).Start();
+            //_consumerGateway.StartAsync<Task, AuthenticateResponse>(Topics.UserRegistrationResponse.ToString(), Authentication);
         }
         public async Task Sub(ICallbackSeparator.AuthenticationDelegate method)
         {
@@ -55,35 +58,35 @@ namespace MessageHelper
             onTakeAction += method;
         }
 
-        public async Task CallbackMethod(GeneralResponse receivedData)
-        {
-            switch (receivedData.OperationType)
-            {
-                case OperationTypes.Auth:
-                    Authentication(receivedData.Authentication);
-                    break;
+        //public async Task CallbackMethod(GeneralResponse receivedData)
+        //{
+        //    switch (receivedData.OperationType)
+        //    {
+        //        case OperationTypes.Auth:
+        //            Authentication(receivedData.Authentication);
+        //            break;
 
-                case OperationTypes.Reg:
-                    Registration(receivedData.Registration);
-                    break;
+        //        case OperationTypes.Reg:
+        //            Registration(receivedData.Registration);
+        //            break;
 
-                case OperationTypes.GetGames:
-                    GetGames(receivedData.GetGames);
-                    break;
+        //        case OperationTypes.GetGames:
+        //            GetGames(receivedData.GetGames);
+        //            break;
 
-                case OperationTypes.AddToTable:
-                    AddToTable(receivedData.AddToTable);
-                    break;
+        //        case OperationTypes.AddToTable:
+        //            AddToTable(receivedData.AddToTable);
+        //            break;
 
-                case OperationTypes.RemoveFromTable:
-                    RemoveFromTable(receivedData.RemoveFromTable);
-                    break;
+        //        case OperationTypes.RemoveFromTable:
+        //            RemoveFromTable(receivedData.RemoveFromTable);
+        //            break;
 
-                case OperationTypes.TakeAction:
-                    TakeAction(receivedData.PlayerAction);
-                    break;
-            }
-        }
+        //        case OperationTypes.TakeAction:
+        //            TakeAction(receivedData.PlayerAction);
+        //            break;
+        //    }
+        //}
 
         async Task Authentication(AuthenticateResponse separatedData)
         {

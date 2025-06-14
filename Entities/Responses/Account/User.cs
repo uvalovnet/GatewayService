@@ -17,5 +17,9 @@
             WalletCash = user.WalletCash;
             IsRegistered = user.IsRegistered;
         }
+        public User()
+        {
+            
+        }
     }
 }
